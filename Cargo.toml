@@ -1,0 +1,14 @@
+[package]
+name = "rust-wasm-testing-example"
+version = "0.1.0"
+edition = "2021"
+authors = ["Paolo Tagliaferri <paolo1.tagliaferri@gmail.com"]
+description = "A minimal example of Rust project that can run tests both on the default target and WASM."
+repository = "https://github.com/ptagl/rust-wasm-testing-example"
+license = "MIT"
+keywords = ["wasm", "testing", "webassembly", "rust", "cross-platform"]
+categories = ["rust-patterns", "wasm"]
+readme = "README.md"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"

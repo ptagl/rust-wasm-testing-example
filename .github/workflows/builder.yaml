@@ -1,0 +1,41 @@
+name: Build and test
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: wasm32-unknown-unknown
+          override: true
+          components: rustfmt, clippy
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install wasm-pack
+        run: cargo install wasm-pack
+
+      - name: Build and test (native)
+        run: cargo test
+
+      - name: Build and test (wasm)
+        run: wasm-pack test --node
+
+      - name: Run cargo fmt
+        run: cargo fmt -- --check
+
+      - name: Run cargo clippy
+        run: cargo clippy --all-targets -- -D warnings
